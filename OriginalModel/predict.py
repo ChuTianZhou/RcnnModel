@@ -11,13 +11,13 @@ if __name__ == "__main__":
     mode = "predict"
     #   crop指定了是否在单张图片预测后对目标进行截取
     #   crop仅在mode='predict'时有效
-    crop            = False
+    crop = False
     test_interval = 100
     #   dir_origin_path指定了用于检测的图片的文件夹路径
     #   dir_save_path指定了检测完图片的保存路径
     #   dir_origin_path和dir_save_path仅在mode='dir_predict'时有效
     dir_origin_path = "img/"
-    dir_save_path   = "img_out/"
+    dir_save_path = "img_out/"
 
     if mode == "predict":
         while True:
@@ -30,7 +30,7 @@ if __name__ == "__main__":
             # 没有出现异常执行
             else:
                 # crop ： 是否进行裁剪 False
-                r_image = frcnn.detect_image(image, crop = crop)
+                r_image = frcnn.detect_image(image, crop=crop)
                 r_image.show()
     elif mode == "dir_predict":
         import os
@@ -38,10 +38,11 @@ if __name__ == "__main__":
 
         img_names = os.listdir(dir_origin_path)
         for img_name in tqdm(img_names):
-            if img_name.lower().endswith(('.bmp', '.dib', '.png', '.jpg', '.jpeg', '.pbm', '.pgm', '.ppm', '.tif', '.tiff')):
-                image_path  = os.path.join(dir_origin_path, img_name)
-                image       = Image.open(image_path)
-                r_image     = frcnn.detect_image(image)
+            if img_name.lower().endswith(
+                    ('.bmp', '.dib', '.png', '.jpg', '.jpeg', '.pbm', '.pgm', '.ppm', '.tif', '.tiff')):
+                image_path = os.path.join(dir_origin_path, img_name)
+                image = Image.open(image_path)
+                r_image = frcnn.detect_image(image)
                 if not os.path.exists(dir_save_path):
                     os.makedirs(dir_save_path)
                 r_image.save(os.path.join(dir_save_path, img_name.replace(".jpg", ".png")), quality=95, subsampling=0)
